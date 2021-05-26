@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Collection of Moments</h1>
+{% for moment in moments %}
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title">{{ moment.name }}</span>
+      <p>Description: {{ moment.description }}</p>
+      <p>Month: {{ moment.month }}</p>
+        <p>Year: {{ moment.year }}</p>
+    </div>
+  </div>
+{% endfor %}
+{% endblock %}
