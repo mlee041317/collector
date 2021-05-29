@@ -1,5 +1,5 @@
 from django import forms
-from .models import Moment, New
+from .models import Moment, Many
 
 class MomentForm(forms.ModelForm):
     class Meta:
@@ -7,7 +7,7 @@ class MomentForm(forms.ModelForm):
         fields = ('name', 'description', 'month', 'year')
 
 
-class NewForm(forms.ModelForm):
+class ManyForm(forms.ModelForm):
     class Meta:
-        model = New
+        model = Many
         fields = ('date', 'people', 'feeling')

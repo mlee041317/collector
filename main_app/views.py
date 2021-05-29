@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Moment
-from .forms import MomentForm, NewForm 
+from .forms import MomentForm, ManyForm
 
 
 # Create your views here.
@@ -24,8 +24,12 @@ def index(request):
 # DETAIL MOMENT
 def detail(request, moment_id):
   found_moment = Moment.objects.get(id=moment_id)
-  context = { 'moment': found_moment }
-  return render(request, 'moments/moments_detail.html', context)
+  many_form = ManyForm()
+  context = { 
+    'moment': found_moment, 
+    'many_form': many_form,
+  }
+  return render(request, 'moment/detail.html', context)
 
 # CREATE MOMENT
 def create_moment(request):
@@ -35,7 +39,7 @@ def create_moment(request):
       'form': form
     }
 
-    return render(request, 'moment/moments_new.html', context)
+    return render(request, 'moment/create_moment.html', context)
   else:
     form = MomentForm(request.POST)
     if form.is_valid():
@@ -65,16 +69,15 @@ def update_moment(request, moment_id):
   else:
     form = MomentForm(request.POST, instance=moment)
     if form.is_valid():
-      moment = moment.save()
+      moment = form.save()
       return redirect('detail', moment.id)
 
 
-# NEW MOMENT
-def new_moment(request, moment_id):
-  form = NewForm(request.POST)
+# FEELING MOMENT
+def create_feeling(request, moment_id):
+  form = ManyForm(request.POST)
   if form.is_valid():
-    new_moment = form.save(commit=False)
-    new_moment.moment_id = moment_id
-    new_moment.save()
+    many_feeling = form.save(commit=False)
+    many_feeling.moment_id = moment_id
+    many_feeling.save()
     return redirect('detail', moment_id)
-

@@ -1,22 +1,64 @@
 {% extends 'base.html' %}
-{% block title %}
-
-<h1>Collection of Moments</h1>
-
-{% end block %}
 
 {% block content %}
+<h1>Collection of Moments</h1>
 
-<h1>Moments</h1>
-
-  <div class="card">
-    <div class="card-content">
-      <span class="card-title">{{ moment.name }}</span>
-      <p>Description: {{ moment.description }}</p>
-      <p>Month: {{ moment.month }}</p>
+<div class="row">
+  
+  <div class="col s6">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">{{ moment.name }}</span>
+        <p>Description: {{ moment.description }}</p>
+        <p>Month: {{ moment.month }}</p>
         <p>Year: {{ moment.year }}</p>
-    </div>
+      </div>
+
+  <div class="card-action">
+    <a href="{% url 'delete_moment' moment.id %}">Delete</a>
+    <a href="{% url 'update_moment' moment.id %}">Update</a>
   </div>
 
+    </div>
+  </div> 
+
+  <div class="col s6">
+     <form action="{% url 'create_feeling' moment.id %}" method="post">
+        {% csrf_token %}
+        {{ many_form.as_p }}
+        <input type="submit" class="btn" value="Add New Feeling">
+      </form>
+    
+      <table class="striped">
+        <thead>
+          <tr><th>Date</th><th>Name</th><th>Feeling</th></tr>
+        </thead>
+        <tbody>
+          {% for many in moment.many_set.all %}
+            <tr>
+              <td>{{many.date}}</td>
+              <td>{{many.people }}</td>
+              <td>{{many.feeling }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>    
+const dateEl = document.getElementById('id_date');
+  M.Datepicker.init(dateEl, {
+    format: 'yyyy-mm-dd',
+    defaultDate: new Date(),
+    setDefaultDate: true,
+    autoClose: true
+  });
+const selectEl = document.getElementById('id_feeling');
+  M.FormSelect.init(selectEl);
+</script>
 
 {% endblock %}

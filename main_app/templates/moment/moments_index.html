@@ -2,6 +2,7 @@
 {% block content %}
 <h1>Collection of Moments</h1>
 {% for moment in moments %}
+  <a class="moment-card" href="{% url 'detail' moment.id %}">
   <div class="card">
     <div class="card-content">
       <span class="card-title">{{ moment.name }}</span>
@@ -10,5 +11,8 @@
         <p>Year: {{ moment.year }}</p>
     </div>
   </div>
+  </a>
 {% endfor %}
+
+
 {% endblock %}

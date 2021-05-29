@@ -8,6 +8,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <title>Collection of Moments- {% block title %}{% endblock %}</title>
 </head>
 <body>
@@ -20,8 +21,7 @@
         <ul class="right">
           <li><a href="{% url 'home' %}">Home</a></li>
           <li><a href="{% url 'about' %}">About</a></li>
-          <li><a href="{% url 'reviews' %}">Reviews</a></li>
-          <li><a href="{% url 'new_moment' %}">Add New Moment</a></li>
+          <li><a href="{% url 'create_moment' %}">Create New Moment</a></li>
           <li><a href="{% url 'index' %}">All Moments</a></li>
         </ul>
       </div>

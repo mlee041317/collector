@@ -1,11 +1,11 @@
 from django.db import models
 
 FEELINGS = (
-  ('Happy'),
-  ('Sad'),
-  ('Surprised'),
-  ('Angry'),
-  ('Confused')
+  ('H', 'Happy'),
+  ('Sa', 'Sad'),
+  ('Su', 'Surprised'),
+  ('A', 'Angry'),
+  ('C', 'Confused')
 )
 
 # Create your models here.
@@ -20,21 +20,20 @@ def __str__(self):
   return f'{self.name} | {self.year}'
 
 
-class New(models.Model):
-  date = models.DateField()
-  people = models.CharField(max_length=250)
+class Many(models.Model):
+  date = models.DateField('date')
+  people = models.CharField('name', max_length=250)
   feeling = models.CharField(
-    max_length=1,
+    max_length= 2,
     choices= FEELINGS,
     default= FEELINGS[0][0]
   )
 
 
+  moment = models.ForeignKey(Moment, on_delete=models.CASCADE)
 
-moment = models.ForeignKey(Moment, on_delete=models.CASCADE)
-
-def __str__(self):
-  return f'{self.get_feeling_display()} on {self.date}'
+  def __str__(self):
+    return f'{self.get_feeling_display()} on {self.date}'
 
 
 
